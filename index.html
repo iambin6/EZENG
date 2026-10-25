@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EZENG — Học phản xạ cùng AI</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success-bg: #ecfdf5;
+      --success-border: #a7f3d0;
+      --success-text: #065f46;
+      --error-bg: #fef2f2;
+      --error-border: #fecaca;
+      --error-text: #991b1b;
+      --tag-bg: #e0e7ff;
+      --tag-text: #3730a3;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .brand h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .header-desc {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .stats-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .progress-wrapper {
+      flex: 1;
+      max-width: 280px;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    #progress {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #10b981);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .card-skill {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-skill:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    .card-skill.active {
+      border-color: var(--primary);
+      background-color: #eff6ff;
+      color: var(--primary);
+      box-shadow: 0 2px 4px rgba(37,99,235,0.12);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      border-radius: 6px 6px 0 0;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    p {
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .muted {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .word {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 2px 6px 4px 0;
+    }
+
+    .hide {
+      display: none !important;
+    }
+
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 0;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    input[type="radio"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .field {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      resize: vertical;
+      line-height: 1.5;
+      margin-top: 8px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+
+    button {
+      background: var(--primary);
+      color: #ffffff;
+      border: 1px solid transparent;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+
+    button.secondary {
+      background: #f1f5f9;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+
+    button.secondary:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+      align-items: center;
+    }
+
+    .row > div {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .answer {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .answer:empty {
+      display: none;
+    }
+
+    .answer.success {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .answer.error {
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: var(--error-text);
+    }
+
+    details {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 12px;
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    details p {
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    .audio-player-box {
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin: 36px 0 20px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stats-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .progress-wrapper {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="brand">
+      <h1>EZENG</h1>
+      <span class="word">AI English Reflex</span>
+    </div>
+    <p class="header-desc">Luyện phản xạ 4 kỹ năng tiếng Anh mỗi ngày — Nhanh gọn, thực tế và hiệu quả.</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-label">Bài hoàn thành</span>
+      <span id="done" class="stat-value">0</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Điểm tích luỹ</span>
+      <span id="streak" class="stat-value">0</span>
+    </div>
+    <div class="progress-wrapper">
+      <div class="stat-label">Tiến trình học tập</div>
+      <div class="progress-track">
+        <div id="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-grid">
+    <div id="card-listen" class="card-skill active" onclick="setSkill('listen')">
+      <span>🎧</span>
+      <span>Listening</span>
+    </div>
+    <div id="card-speak" class="card-skill" onclick="setSkill('speak')">
+      <span>🎙️</span>
+      <span>Speaking</span>
+    </div>
+    <div id="card-read" class="card-skill" onclick="setSkill('read')">
+      <span>📖</span>
+      <span>Reading</span>
+    </div>
+    <div id="card-write" class="card-skill" onclick="setSkill('write')">
+      <span>✍️</span>
+      <span>Writing</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="panel">
+      <div class="tabs">
+        <button id="tab-listen" class="tab-btn active" onclick="setSkill('listen')">🎧 Nghe</button>
+        <button id="tab-speak" class="tab-btn" onclick="setSkill('speak')">🎙️ Nói</button>
+        <button id="tab-read" class="tab-btn" onclick="setSkill('read')">📖 Đọc</button>
+        <button id="tab-write" class="tab-btn" onclick="setSkill('write')">✍️ Viết</button>
+      </div>
+
+      <div class="eyebrow">Thực hành phản xạ</div>
+      <h2 id="practiceTitle">🎧 Listening — Nghe hiểu</h2>
+
+      <!-- Skill 1: Listening -->
+      <div id="listen" class="exercise">
+        <h2>Nghe đoạn hội thoại và chọn đáp án</h2>
+        <p class="muted">Bấm nút để nghe giọng đọc bản xứ qua AI TTS, sau đó chọn mốc thời gian chính xác.</p>
+        <div class="audio-player-box">
+          <div>
+            <b>Đoạn hội thoại mẫu:</b>
+            <div class="muted">Chủ đề: Daily Routine (Thói quen hằng ngày)</div>
+          </div>
+          <button onclick="speakText('Good morning! What time do you wake up every day? Well, I usually wake up at seven o\'clock.')">
+            🔊 Nghe giọng đọc
+          </button>
+        </div>
+        <p><b>Question:</b> What time does the speaker usually wake up?</p>
+        <label><input type="radio" name="listenAns" value="a"> At six o’clock</label><br>
+        <label><input type="radio" name="listenAns" value="b"> At seven o’clock</label><br>
+        <label><input type="radio" name="listenAns" value="c"> At eight o’clock</label><br>
+        <button style="margin-top:14px" onclick="checkListen()">Kiểm tra đáp án</button>
+        <div id="listenResult" class="answer"></div>
+        <details style="margin-top:12px">
+          <summary>Từ vựng hữu ích</summary>
+          <p>
+            <span class="word">wake up: thức dậy</span>
+            <span class="word">usually: thường xuyên</span>
+            <span class="word">daily routine: thói quen hằng ngày</span>
+            <span class="word">o'clock: đúng giờ</span>
+          </p>
+        </details>
+      </div>
+
+      <!-- Skill 2: Speaking -->
+      <div id="speak" class="exercise hide">
+        <h2>Luyện nói phản xạ</h2>
+        <p class="muted">Hãy giới thiệu tên và chia sẻ ngắn gọn về thói quen học tiếng Anh của bạn.</p>
+        <div class="audio-player-box">
+          <div>
+            <b>Câu mẫu gợi ý:</b>
+            <div class="muted">"Hello, my name is Alex. I learn English every day."</div>
+          </div>
+          <button class="secondary" onclick="speakText('Hello, my name is Alex. I learn English every day.')">
+            🔊 Nghe câu mẫu
+          </button>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+          <button onclick="startSpeech()">🎙️ Bật Micro & Nói</button>
+        </div>
+        <p id="micStatus" class="muted" style="margin-top: 10px;">Nhấn nút micro và bắt đầu nói tiếng Anh vào micro của máy tính hoặc điện thoại.</p>
+        <div id="speechText" class="field" style="min-height: 54px; background: #f8fafc; font-style: italic;">Bản nhận diện giọng nói sẽ hiển thị tại đây...</div>
+        <div style="margin-top: 14px;">
+          <button onclick="evaluateSpeech()">Kiểm tra bài nói</button>
+        </div>
+        <div id="speechResult" class="answer"></div>
+        <details style="margin-top:12px">
+          <summary>Gợi ý cách nói tốt hơn</summary>
+          <p>
+            <span class="word">speak clearly: nói rõ ràng</span>
+            <span class="word">full sentences: nói nguyên câu</span>
+            <span class="word">introduce yourself: giới thiệu bản thân</span>
+          </p>
+        </details>
+      </div>
+
+      <!-- Skill 3: Reading (User Snippet) -->
+      <div id="read" class="exercise hide"><h2>Đọc đoạn văn ngắn</h2><p><b>A Busy Student</b></p><p>Emma is a first-year university student. She studies English every morning for twenty minutes. In the afternoon, she attends classes and meets her friends. She believes that small daily habits can make a big difference.</p><p><b>Question:</b> How long does Emma study English every morning?</p><label><input type="radio" name="readAns" value="a"> Ten minutes</label><br><label><input type="radio" name="readAns" value="b"> Twenty minutes</label><br><label><input type="radio" name="readAns" value="c"> One hour</label><br><button style="margin-top:14px" onclick="checkRead()">Kiểm tra đáp án</button><div id="readResult" class="answer"></div><details style="margin-top:12px"><summary>Từ vựng hữu ích</summary><p><span class="word">first-year: năm nhất</span><span class="word">attend classes: đi học/tham gia lớp</span><span class="word">daily habits: thói quen hằng ngày</span><span class="word">make a difference: tạo ra thay đổi</span></p></details></div>
+
+      <!-- Skill 4: Writing (User Snippet) -->
+      <div id="write" class="exercise hide"><h2>Viết và tự kiểm tra</h2><p class="muted">Viết 3–5 câu trả lời: <b>What do you usually do to learn English?</b></p><textarea id="writing" class="field" rows="5" placeholder="I usually listen to English podcasts..."></textarea><div class="row"><button onclick="checkWriting()">Nhận gợi ý kiểm tra</button><button class="secondary" onclick="document.getElementById('writing').value=''">Xóa bài viết</button></div><div id="writeResult" class="answer"></div><p class="muted">Lưu ý: công cụ này đưa gợi ý cơ bản theo từ khóa, không phải chấm điểm ngữ pháp bằng AI thực sự.</p></div>
+    </section>
+
+    <!-- Study Smarter Panel (User Snippet) -->
+    <section class="panel" style="margin-top:20px"><div class="eyebrow">Study smarter</div><h2>Lộ trình 15 phút mỗi ngày</h2><div class="row"><div><span class="word">5 phút</span><p class="muted">Nghe một câu và nhắc lại.</p></div><div><span class="word">5 phút</span><p class="muted">Đọc đoạn ngắn, ghi 3 từ mới.</p></div><div><span class="word">5 phút</span><p class="muted">Nói hoặc viết về ngày của bạn.</p></div></div><button class="secondary" onclick="resetProgress()">Đặt lại tiến độ trên thiết bị</button></section>
+  </main>
+
+  <footer class="footer">EZENG — Học phản xạ cùng AI · Bản demo học tập miễn phí.<br>Không yêu cầu tài khoản. Tiến độ được lưu cục bộ trên trình duyệt của bạn.</footer>
+</div>
+
+<script>
+const titles={listen:'🎧 Listening — Nghe hiểu',speak:'🎙️ Speaking — Luyện nói',read:'📖 Reading — Đọc hiểu',write:'✍️ Writing — Luyện viết'};
+let completed=Number(localStorage.getItem('ezengDone')||0), points=Number(localStorage.getItem('ezengPoints')||0);
+function updateStats(){document.getElementById('done').textContent=completed;document.getElementById('streak').textContent=points;document.getElementById('progress').style.width=Math.min(100,completed*10)+'%'}
+function finish(pointsEarned=10){completed++;points+=pointsEarned;localStorage.setItem('ezengDone',completed);localStorage.setItem('ezengPoints',points);updateStats()}
+function setSkill(s){['listen','speak','read','write'].forEach(k=>{document.getElementById(k).classList.toggle('hide',k!==s);document.getElementById('tab-'+k).classList.toggle('active',k===s);document.getElementById('card-'+k).classList.toggle('active',k===s)});document.getElementById('practiceTitle').textContent=titles[s];}
+function speakText(t){if(!('speechSynthesis'in window)){alert('Trình duyệt này chưa hỗ trợ đọc văn bản.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.86;speechSynthesis.speak(u)}
+function checkListen(){let a=document.querySelector('input[name="listenAns"]:checked'),r=document.getElementById('listenResult');if(!a){r.textContent='Hãy chọn một đáp án trước nhé.';return}if(a.value==='b'){r.innerHTML='✅ Chính xác! “At seven o’clock.”';r.className='answer success';if(!r.dataset.done){finish();r.dataset.done='1'}}else{r.textContent='Chưa đúng. Hãy nghe lại và chú ý cụm “at seven o’clock”.';r.className='answer error'}}
+function checkRead(){let a=document.querySelector('input[name="readAns"]:checked'),r=document.getElementById('readResult');if(!a){r.textContent='Hãy chọn một đáp án trước nhé.';return}if(a.value==='b'){r.textContent='✅ Chính xác! Emma studies for twenty minutes.';r.className='answer success';if(!r.dataset.done){finish();r.dataset.done='1'}}else{r.textContent='Chưa đúng. Đọc lại câu thứ hai của đoạn văn nhé.';r.className='answer error'}}
+function startSpeech(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){document.getElementById('micStatus').textContent='Trình duyệt chưa hỗ trợ nhận diện giọng nói. Hãy dùng nút nghe mẫu và tự đọc thành tiếng.';return}let rec=new SR();rec.lang='en-US';rec.interimResults=false;rec.onstart=()=>document.getElementById('micStatus').textContent='Đang nghe… Hãy nói bằng tiếng Anh.';rec.onresult=e=>document.getElementById('speechText').textContent=e.results[0][0].transcript;rec.onerror=e=>document.getElementById('micStatus').textContent='Không dùng được micro ('+e.error+'). Kiểm tra quyền micro hoặc thử Chrome/Edge.';rec.onend=()=>document.getElementById('micStatus').textContent='Đã kết thúc lượt nói.';rec.start()}
+function evaluateSpeech(){let t=document.getElementById('speechText').textContent;if(!t||t.startsWith('Bản nhận diện')){document.getElementById('speechResult').textContent='Hãy thử nói một vài câu trước. Bạn cũng có thể ghi âm bằng ứng dụng riêng để tự nghe lại.';return}document.getElementById('speechResult').innerHTML='🗣️ Bạn đã thực hành nói! Hãy kiểm tra: <br>• Có giới thiệu tên không? <br>• Có nói thành câu đầy đủ không? <br>• Hãy nghe lại và thử nói chậm, rõ hơn.<br><br><b>Bạn đã nói:</b> '+escapeHtml(t);finish(5)}
+function checkWriting(){let t=document.getElementById('writing').value.trim(),r=document.getElementById('writeResult');if(!t){r.textContent='Hãy viết vài câu trước nhé.';return}let words=t.split(/\s+/).filter(Boolean),tips=[];if(words.length<15)tips.push('Thử viết thêm để đạt khoảng 3–5 câu (hiện khoảng '+words.length+' từ).');if(!/[.!?]$/.test(t))tips.push('Thêm dấu câu ở cuối bài.');if(!/\b(I|my|we|English|usually|learn|study|listen|read|speak|write)\b/i.test(t))tips.push('Kiểm tra xem bài đã trả lời đúng chủ đề học tiếng Anh chưa.');if(!/[A-Z]/.test(t[0]))tips.push('Viết hoa chữ cái đầu câu.');if(!tips.length)tips.push('Bài có độ dài và dấu câu cơ bản ổn. Hãy tự rà lại thì động từ, chính tả và cách diễn đạt.');r.innerHTML='📝 Gợi ý tự sửa:<br>• '+tips.map(escapeHtml).join('<br>• ')+'<br><br><span class="muted">Đây là kiểm tra quy tắc đơn giản, không phải phản hồi từ mô hình AI.</span>';finish(5)}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function resetProgress(){if(confirm('Đặt lại điểm và số bài đã hoàn thành trên trình duyệt này?')){completed=0;points=0;localStorage.removeItem('ezengDone');localStorage.removeItem('ezengPoints');updateStats()}}
+updateStats();
+</script>
+</body>
+</html>
