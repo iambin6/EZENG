@@ -1,0 +1,9 @@
+{
+  "name": "ezeng",
+  "version": "2.0.0",
+  "description": "EZENG — English, at your pace",
+  "type": "module",
+  "scripts": {
+    "start": "npx serve ."
+  }
+}

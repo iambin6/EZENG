@@ -1,554 +1,145 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EZENG — Học phản xạ cùng AI</title>
-  <style>
-    :root {
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --success-bg: #ecfdf5;
-      --success-border: #a7f3d0;
-      --success-text: #065f46;
-      --error-bg: #fef2f2;
-      --error-border: #fecaca;
-      --error-text: #991b1b;
-      --tag-bg: #e0e7ff;
-      --tag-text: #3730a3;
-      --radius: 12px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 24px 16px;
-    }
-
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-    }
-
-    header {
-      margin-bottom: 24px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .brand h1 {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--primary);
-      letter-spacing: -0.5px;
-    }
-
-    .header-desc {
-      color: var(--text-muted);
-      font-size: 15px;
-    }
-
-    .stats-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .stat-value {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .progress-wrapper {
-      flex: 1;
-      max-width: 280px;
-    }
-
-    .progress-track {
-      height: 10px;
-      background: #e2e8f0;
-      border-radius: 9999px;
-      overflow: hidden;
-      margin-top: 6px;
-    }
-
-    #progress {
-      height: 100%;
-      background: linear-gradient(90deg, #3b82f6, #10b981);
-      border-radius: 9999px;
-      transition: width 0.3s ease;
-      width: 0%;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .card-skill {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-weight: 600;
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .card-skill:hover {
-      border-color: var(--primary);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    }
-
-    .card-skill.active {
-      border-color: var(--primary);
-      background-color: #eff6ff;
-      color: var(--primary);
-      box-shadow: 0 2px 4px rgba(37,99,235,0.12);
-    }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      border-bottom: 2px solid var(--border);
-      margin-bottom: 20px;
-      overflow-x: auto;
-    }
-
-    .tab-btn {
-      background: none;
-      border: none;
-      padding: 10px 16px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-muted);
-      cursor: pointer;
-      position: relative;
-      border-radius: 6px 6px 0 0;
-      transition: color 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .tab-btn:hover {
-      color: var(--text);
-    }
-
-    .tab-btn.active {
-      color: var(--primary);
-    }
-
-    .tab-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--primary);
-    }
-
-    .panel {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-
-    .eyebrow {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
-    }
-
-    h2 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 14px;
-      color: var(--text);
-    }
-
-    p {
-      margin-bottom: 12px;
-      font-size: 15px;
-    }
-
-    .muted {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .word {
-      display: inline-block;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      margin: 2px 6px 4px 0;
-    }
-
-    .hide {
-      display: none !important;
-    }
-
-    label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 6px 0;
-      cursor: pointer;
-      font-size: 15px;
-    }
-
-    input[type="radio"] {
-      width: 17px;
-      height: 17px;
-      accent-color: var(--primary);
-      cursor: pointer;
-    }
-
-    .field {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 15px;
-      font-family: inherit;
-      resize: vertical;
-      line-height: 1.5;
-      margin-top: 8px;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .field:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
-    }
-
-    button {
-      background: var(--primary);
-      color: #ffffff;
-      border: 1px solid transparent;
-      padding: 9px 18px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    button:hover {
-      background: var(--primary-hover);
-    }
-
-    button.secondary {
-      background: #f1f5f9;
-      color: #334155;
-      border-color: #cbd5e1;
-    }
-
-    button.secondary:hover {
-      background: #e2e8f0;
-      color: #0f172a;
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 14px;
-      align-items: center;
-    }
-
-    .row > div {
-      flex: 1;
-      min-width: 180px;
-    }
-
-    .answer {
-      margin-top: 14px;
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .answer:empty {
-      display: none;
-    }
-
-    .answer.success {
-      background: var(--success-bg);
-      border: 1px solid var(--success-border);
-      color: var(--success-text);
-    }
-
-    .answer.error {
-      background: var(--error-bg);
-      border: 1px solid var(--error-border);
-      color: var(--error-text);
-    }
-
-    details {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 14px;
-      margin-top: 12px;
-    }
-
-    details summary {
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      color: var(--text);
-    }
-
-    details p {
-      margin-top: 10px;
-      margin-bottom: 0;
-    }
-
-    .audio-player-box {
-      background: #f1f5f9;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .footer {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
-      margin: 36px 0 20px;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 640px) {
-      .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .stats-bar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .progress-wrapper {
-        max-width: 100%;
-      }
-    }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f4ee">
+<title>EZENG — English, at your pace</title>
+<style>
+:root{--bg:#f7f4ee;--card:#fffefa;--ink:#28251f;--muted:#777267;--line:#e8e1d6;--primary:#6b7d5a;--primary-dark:#506243;--soft:#e9eee3;--peach:#f5e4d7;--gold:#e6c98b;--red:#a44d42;--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:10px 15px;background:var(--primary);color:white;font-weight:700;transition:.15s}button:hover{background:var(--primary-dark);transform:translateY(-1px)}button.secondary{background:#f1eee7;color:var(--ink);border:1px solid var(--line)}button.ghost{background:transparent;color:var(--primary-dark);border:1px solid var(--line)}button.small{padding:6px 10px;font-size:13px}button:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.wrap{max-width:1150px;margin:auto;padding:24px 20px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:12px}.logo{width:45px;height:45px;border-radius:15px;background:var(--primary);color:#fff;display:grid;place-items:center;font-weight:900;font-size:18px;letter-spacing:-1px}.brand h1{margin:0;font-size:25px;letter-spacing:-1px}.brand p{margin:0;color:var(--muted);font-size:13px}.top-actions{display:flex;gap:8px;align-items:center}.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:var(--soft);color:var(--primary-dark);font-size:12px;font-weight:800}
+.hero{background:#e9eee3;border-radius:26px;padding:30px;display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:center;margin-bottom:20px;overflow:hidden}.hero h2{font-size:clamp(28px,4vw,42px);line-height:1.12;letter-spacing:-1.4px;margin:10px 0 12px;max-width:620px}.hero p{color:#555b4d;max-width:560px;margin:0 0 18px}.hero-art{min-height:150px;display:grid;place-items:center;font-size:92px;filter:drop-shadow(0 10px 8px #9da68b55)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 24px}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}.stat .label{font-size:12px;color:var(--muted);font-weight:700}.stat .num{font-size:28px;font-weight:850;letter-spacing:-1px;margin-top:4px}.stat .hint{font-size:12px;color:var(--muted)}.nav{display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px;margin-bottom:8px}.nav button{white-space:nowrap;background:transparent;color:var(--muted);border:1px solid transparent}.nav button.active{background:var(--ink);color:white}.view{display:none}.view.active{display:block}.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:12px 0 18px}.section-head h2{margin:0;font-size:25px;letter-spacing:-.7px}.section-head p{margin:4px 0 0;color:var(--muted)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card h3{margin:0 0 8px;font-size:18px}.muted{color:var(--muted)}.tiny{font-size:12px;color:var(--muted)}.field{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px 13px;outline:none;color:var(--ink);margin:6px 0 12px}.field:focus{border-color:var(--primary);box-shadow:0 0 0 3px #6b7d5a20}textarea.field{min-height:150px;resize:vertical}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.row>*{flex:0 0 auto}.row .grow{flex:1 1 180px}.divider{height:1px;background:var(--line);margin:18px 0}.result{padding:14px;border-radius:13px;background:#f2f0e9;margin-top:12px;white-space:pre-wrap}.result.good{background:#e9f2e7;color:#355334}.result.bad{background:#f8e9e5;color:#853e34}.word-chip{display:inline-flex;background:var(--soft);color:var(--primary-dark);padding:5px 9px;border-radius:8px;font-weight:750;font-size:12px;margin:3px}.level{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fffefa;text-align:left;color:var(--ink);width:100%}.level.selected{border-color:var(--primary);box-shadow:0 0 0 2px #6b7d5a20}.level strong{font-size:19px;display:block}.level small{color:var(--muted)}.progress{height:8px;border-radius:999px;background:#ebe7df;overflow:hidden;margin:10px 0}.progress span{height:100%;display:block;background:var(--primary);width:0}.flashcard{min-height:240px;background:#e9eee3;border-radius:20px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;margin:15px 0}.flashcard .front{font-size:32px;font-weight:850;letter-spacing:-1px}.flashcard .back{font-size:20px;margin-top:8px}.flashcard .ipa{color:var(--muted);margin-top:5px}.flashcard .example{font-size:14px;margin-top:14px;max-width:440px}.option{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);padding:12px;border-radius:12px;margin:8px 0;cursor:pointer;background:white}.option input{margin-top:5px;accent-color:var(--primary)}.option:has(input:checked){border-color:var(--primary);background:#f3f6ef}.bar-row{display:grid;grid-template-columns:100px 1fr 40px;gap:10px;align-items:center;margin:12px 0}.bar{height:10px;background:#ebe7df;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:var(--primary);border-radius:99px}.scenario{border:1px solid var(--line);padding:14px;border-radius:14px;background:#fff;cursor:pointer}.scenario.active{border-color:var(--primary);background:#f0f3eb}.chat{display:flex;flex-direction:column;gap:10px;max-height:350px;overflow:auto;padding:12px;background:#f7f5ef;border-radius:14px;margin:12px 0}.bubble{padding:10px 13px;border-radius:14px;max-width:88%;white-space:pre-wrap}.bubble.bot{background:white;border:1px solid var(--line);align-self:flex-start}.bubble.me{background:var(--primary);color:white;align-self:flex-end}.empty{padding:28px;text-align:center;color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:12px;margin-top:35px}a{color:var(--primary-dark)}.notice{font-size:13px;color:var(--muted);border-left:3px solid var(--gold);padding:8px 12px;background:#fffaf0;border-radius:0 8px 8px 0}
+@media(max-width:760px){.wrap{padding:16px 12px 40px}.hero{grid-template-columns:1fr;padding:23px}.hero-art{display:none}.stats{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.top{align-items:flex-start}.top-actions .pill{display:none}.bar-row{grid-template-columns:80px 1fr 30px}}
+</style>
 </head>
-<body>
-<div class="container">
-  <header>
-    <div class="brand">
-      <h1>EZENG</h1>
-      <span class="word">AI English Reflex</span>
-    </div>
-    <p class="header-desc">Luyện phản xạ 4 kỹ năng tiếng Anh mỗi ngày — Nhanh gọn, thực tế và hiệu quả.</p>
-  </header>
-
-  <div class="stats-bar">
-    <div class="stat-item">
-      <span class="stat-label">Bài hoàn thành</span>
-      <span id="done" class="stat-value">0</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-label">Điểm tích luỹ</span>
-      <span id="streak" class="stat-value">0</span>
-    </div>
-    <div class="progress-wrapper">
-      <div class="stat-label">Tiến trình học tập</div>
-      <div class="progress-track">
-        <div id="progress"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="skills-grid">
-    <div id="card-listen" class="card-skill active" onclick="setSkill('listen')">
-      <span>🎧</span>
-      <span>Listening</span>
-    </div>
-    <div id="card-speak" class="card-skill" onclick="setSkill('speak')">
-      <span>🎙️</span>
-      <span>Speaking</span>
-    </div>
-    <div id="card-read" class="card-skill" onclick="setSkill('read')">
-      <span>📖</span>
-      <span>Reading</span>
-    </div>
-    <div id="card-write" class="card-skill" onclick="setSkill('write')">
-      <span>✍️</span>
-      <span>Writing</span>
-    </div>
-  </div>
-
-  <main>
-    <section class="panel">
-      <div class="tabs">
-        <button id="tab-listen" class="tab-btn active" onclick="setSkill('listen')">🎧 Nghe</button>
-        <button id="tab-speak" class="tab-btn" onclick="setSkill('speak')">🎙️ Nói</button>
-        <button id="tab-read" class="tab-btn" onclick="setSkill('read')">📖 Đọc</button>
-        <button id="tab-write" class="tab-btn" onclick="setSkill('write')">✍️ Viết</button>
-      </div>
-
-      <div class="eyebrow">Thực hành phản xạ</div>
-      <h2 id="practiceTitle">🎧 Listening — Nghe hiểu</h2>
-
-      <!-- Skill 1: Listening -->
-      <div id="listen" class="exercise">
-        <h2>Nghe đoạn hội thoại và chọn đáp án</h2>
-        <p class="muted">Bấm nút để nghe giọng đọc bản xứ qua AI TTS, sau đó chọn mốc thời gian chính xác.</p>
-        <div class="audio-player-box">
-          <div>
-            <b>Đoạn hội thoại mẫu:</b>
-            <div class="muted">Chủ đề: Daily Routine (Thói quen hằng ngày)</div>
-          </div>
-          <button onclick="speakText('Good morning! What time do you wake up every day? Well, I usually wake up at seven o\'clock.')">
-            🔊 Nghe giọng đọc
-          </button>
-        </div>
-        <p><b>Question:</b> What time does the speaker usually wake up?</p>
-        <label><input type="radio" name="listenAns" value="a"> At six o’clock</label><br>
-        <label><input type="radio" name="listenAns" value="b"> At seven o’clock</label><br>
-        <label><input type="radio" name="listenAns" value="c"> At eight o’clock</label><br>
-        <button style="margin-top:14px" onclick="checkListen()">Kiểm tra đáp án</button>
-        <div id="listenResult" class="answer"></div>
-        <details style="margin-top:12px">
-          <summary>Từ vựng hữu ích</summary>
-          <p>
-            <span class="word">wake up: thức dậy</span>
-            <span class="word">usually: thường xuyên</span>
-            <span class="word">daily routine: thói quen hằng ngày</span>
-            <span class="word">o'clock: đúng giờ</span>
-          </p>
-        </details>
-      </div>
-
-      <!-- Skill 2: Speaking -->
-      <div id="speak" class="exercise hide">
-        <h2>Luyện nói phản xạ</h2>
-        <p class="muted">Hãy giới thiệu tên và chia sẻ ngắn gọn về thói quen học tiếng Anh của bạn.</p>
-        <div class="audio-player-box">
-          <div>
-            <b>Câu mẫu gợi ý:</b>
-            <div class="muted">"Hello, my name is Alex. I learn English every day."</div>
-          </div>
-          <button class="secondary" onclick="speakText('Hello, my name is Alex. I learn English every day.')">
-            🔊 Nghe câu mẫu
-          </button>
-        </div>
-        <div class="row" style="margin-top: 10px;">
-          <button onclick="startSpeech()">🎙️ Bật Micro & Nói</button>
-        </div>
-        <p id="micStatus" class="muted" style="margin-top: 10px;">Nhấn nút micro và bắt đầu nói tiếng Anh vào micro của máy tính hoặc điện thoại.</p>
-        <div id="speechText" class="field" style="min-height: 54px; background: #f8fafc; font-style: italic;">Bản nhận diện giọng nói sẽ hiển thị tại đây...</div>
-        <div style="margin-top: 14px;">
-          <button onclick="evaluateSpeech()">Kiểm tra bài nói</button>
-        </div>
-        <div id="speechResult" class="answer"></div>
-        <details style="margin-top:12px">
-          <summary>Gợi ý cách nói tốt hơn</summary>
-          <p>
-            <span class="word">speak clearly: nói rõ ràng</span>
-            <span class="word">full sentences: nói nguyên câu</span>
-            <span class="word">introduce yourself: giới thiệu bản thân</span>
-          </p>
-        </details>
-      </div>
-
-      <!-- Skill 3: Reading (User Snippet) -->
-      <div id="read" class="exercise hide"><h2>Đọc đoạn văn ngắn</h2><p><b>A Busy Student</b></p><p>Emma is a first-year university student. She studies English every morning for twenty minutes. In the afternoon, she attends classes and meets her friends. She believes that small daily habits can make a big difference.</p><p><b>Question:</b> How long does Emma study English every morning?</p><label><input type="radio" name="readAns" value="a"> Ten minutes</label><br><label><input type="radio" name="readAns" value="b"> Twenty minutes</label><br><label><input type="radio" name="readAns" value="c"> One hour</label><br><button style="margin-top:14px" onclick="checkRead()">Kiểm tra đáp án</button><div id="readResult" class="answer"></div><details style="margin-top:12px"><summary>Từ vựng hữu ích</summary><p><span class="word">first-year: năm nhất</span><span class="word">attend classes: đi học/tham gia lớp</span><span class="word">daily habits: thói quen hằng ngày</span><span class="word">make a difference: tạo ra thay đổi</span></p></details></div>
-
-      <!-- Skill 4: Writing (User Snippet) -->
-      <div id="write" class="exercise hide"><h2>Viết và tự kiểm tra</h2><p class="muted">Viết 3–5 câu trả lời: <b>What do you usually do to learn English?</b></p><textarea id="writing" class="field" rows="5" placeholder="I usually listen to English podcasts..."></textarea><div class="row"><button onclick="checkWriting()">Nhận gợi ý kiểm tra</button><button class="secondary" onclick="document.getElementById('writing').value=''">Xóa bài viết</button></div><div id="writeResult" class="answer"></div><p class="muted">Lưu ý: công cụ này đưa gợi ý cơ bản theo từ khóa, không phải chấm điểm ngữ pháp bằng AI thực sự.</p></div>
-    </section>
-
-    <!-- Study Smarter Panel (User Snippet) -->
-    <section class="panel" style="margin-top:20px"><div class="eyebrow">Study smarter</div><h2>Lộ trình 15 phút mỗi ngày</h2><div class="row"><div><span class="word">5 phút</span><p class="muted">Nghe một câu và nhắc lại.</p></div><div><span class="word">5 phút</span><p class="muted">Đọc đoạn ngắn, ghi 3 từ mới.</p></div><div><span class="word">5 phút</span><p class="muted">Nói hoặc viết về ngày của bạn.</p></div></div><button class="secondary" onclick="resetProgress()">Đặt lại tiến độ trên thiết bị</button></section>
-  </main>
-
-  <footer class="footer">EZENG — Học phản xạ cùng AI · Bản demo học tập miễn phí.<br>Không yêu cầu tài khoản. Tiến độ được lưu cục bộ trên trình duyệt của bạn.</footer>
+<body><div class="wrap">
+<header class="top"><div class="brand"><div class="logo">EZ</div><div><h1>EZENG <span style="color:var(--primary)">.</span></h1><p>English, at your pace.</p></div></div><div class="top-actions"><span class="pill">🌿 Your learning space</span><button class="secondary small" onclick="setDailyGoal()">⚙ Mục tiêu ngày</button></div></header>
+<section class="hero"><div><span class="pill">✨ LITTLE STEPS, REAL PROGRESS</span><h2>Tiếng Anh tốt hơn,<br>mỗi ngày một chút.</h2><p>Luyện 4 kỹ năng, lưu từ vựng, trò chuyện theo tình huống và nhìn thấy tiến bộ của chính mình.</p><button onclick="go('practice')">Bắt đầu học →</button></div><div class="hero-art" aria-hidden="true">📚🌱</div></section>
+<section class="stats">
+<div class="stat"><div class="label">BÀI ĐÃ HOÀN THÀNH</div><div class="num" id="statDone">0</div><div class="hint">Tích lũy từng bước</div></div>
+<div class="stat"><div class="label">ĐIỂM HỌC TẬP</div><div class="num" id="statPoints">0</div><div class="hint">Điểm từ bài luyện</div></div>
+<div class="stat"><div class="label">CHUỖI NGÀY HỌC</div><div class="num" id="statStreak">0 🔥</div><div class="hint">Ngày học liên tiếp</div></div>
+<div class="stat"><div class="label">MỤC TIÊU HÔM NAY</div><div class="num" id="statGoal">0/15</div><div class="progress"><span id="goalBar"></span></div></div>
+</section>
+<nav class="nav" aria-label="Điều hướng">
+<button class="active" data-view="practice" onclick="go('practice')">✍️ Luyện tập</button><button data-view="vocab" onclick="go('vocab')">🗂️ Sổ từ vựng</button><button data-view="path" onclick="go('path')">🪜 Lộ trình CEFR</button><button data-view="scenarios" onclick="go('scenarios')">💬 Hội thoại</button><button data-view="bank" onclick="go('bank')">📝 Ngân hàng câu hỏi</button><button data-view="dashboard" onclick="go('dashboard')">📊 Tiến độ</button>
+</nav>
+<main>
+<section id="view-practice" class="view active">
+<div class="section-head"><div><h2>Góc luyện tập</h2><p>Chọn kỹ năng và bắt đầu với một bài ngắn.</p></div><span class="pill">Level <span id="currentLevelLabel">A1</span></span></div>
+<div class="grid2">
+<div class="card"><h3>🎧 Listening · Nghe hiểu</h3><p class="muted">Nghe câu tiếng Anh rồi chọn đáp án đúng.</p><div class="result" id="listenText">“Hi, I’m Mia. I take the bus to school at eight o’clock.”</div><button class="secondary" onclick="speakText('Hi, I am Mia. I take the bus to school at eight o’clock.')">🔊 Nghe câu</button><div class="divider"></div><p><b>How does Mia go to school?</b></p><div id="listenOptions"></div><button onclick="checkSkill('listen')">Kiểm tra đáp án</button><div id="listenResult" class="result" hidden></div></div>
+<div class="card"><h3>📖 Reading · Đọc hiểu</h3><p class="muted">Đọc đoạn văn ngắn, tìm thông tin chính.</p><p><b>A small habit</b></p><p>Leo reads one page of an English book every night. He writes down two new words and reviews them before breakfast. After a month, he feels more confident.</p><p><b>What does Leo do before breakfast?</b></p><div id="readOptions"></div><button onclick="checkSkill('read')">Kiểm tra đáp án</button><div id="readResult" class="result" hidden></div><div class="row" style="margin-top:12px"><button class="ghost small" onclick="saveWord('confident','tự tin','/ˈkɒn.fɪ.dənt/','She feels confident when speaking English.','Reading')">＋ Lưu “confident”</button><button class="ghost small" onclick="saveWord('review','ôn tập','/rɪˈvjuː/','I review new words every night.','Reading')">＋ Lưu “review”</button></div></div>
+<div class="card"><h3>🎙️ Speaking · Luyện nói</h3><p class="muted">Dùng micro để nói. Trình duyệt có thể yêu cầu quyền micro.</p><p><b>Prompt:</b> Introduce yourself and tell us one thing you do every day.</p><div class="row"><button onclick="startSpeech()">🎙️ Bắt đầu nói</button><button class="secondary" onclick="speakText('Hello, my name is... One thing I do every day is...')">🔊 Nghe câu mẫu</button></div><div id="speechText" class="result">Bản nhận diện giọng nói sẽ xuất hiện ở đây.</div><button class="secondary" onclick="reviewSpeech()" style="margin-top:8px">Tự đánh giá bài nói</button><div id="speechResult" class="result" hidden></div></div>
+<div class="card"><h3>✍️ Writing · Luyện viết</h3><p class="muted">Viết vài câu. Có thể dùng AI nếu đã cấu hình endpoint an toàn.</p><label for="writing"><b>What do you do to practise English?</b></label><textarea id="writing" class="field" placeholder="I practise English by..."></textarea><div class="row"><button onclick="checkWriting()">Nhận phản hồi</button><button class="secondary" onclick="document.getElementById('writing').value=''">Xóa</button></div><div id="writeResult" class="result" hidden></div></div>
 </div>
-
+</section>
+<section id="view-vocab" class="view">
+<div class="section-head"><div><h2>Sổ từ vựng của bạn</h2><p>Lưu từ mới và ôn bằng flashcard. Dữ liệu lưu trên trình duyệt này.</p></div><span class="pill" id="vocabCount">0 từ</span></div>
+<div class="grid2"><div class="card"><h3>➕ Thêm từ mới</h3><label>Từ / cụm từ</label><input id="vWord" class="field" placeholder="e.g. confident"><label>Nghĩa tiếng Việt</label><input id="vMeaning" class="field" placeholder="tự tin"><label>IPA (nếu biết)</label><input id="vIpa" class="field" placeholder="/ˈkɒn.fɪ.dənt/"><label>Câu ví dụ</label><textarea id="vExample" class="field" style="min-height:75px" placeholder="I feel confident when..."></textarea><button onclick="addVocab()">Lưu từ vựng</button></div>
+<div class="card"><h3>🧠 Flashcards</h3><p class="muted">Nhớ nghĩa trước khi lật thẻ. Chọn mức độ để lên lịch ôn lại.</p><div class="flashcard" id="flashcard" onclick="flipCard()"><div class="front" id="flashWord">Chưa có từ nào</div><div class="ipa" id="flashIpa"></div><div class="back" id="flashMeaning"></div><div class="example" id="flashExample"></div><div class="tiny" style="margin-top:14px">Bấm thẻ để ẩn/hiện nghĩa</div></div><div class="row"><button class="secondary" onclick="prevCard()">← Trước</button><button class="secondary" onclick="nextCard()">Tiếp →</button><button onclick="rateCard(false)">Cần ôn lại</button><button onclick="rateCard(true)">Đã nhớ ✓</button></div><div class="tiny" id="flashMeta" style="margin-top:10px"></div></div></div>
+<div class="card" style="margin-top:16px"><div class="row" style="justify-content:space-between"><h3>Danh sách từ đã lưu</h3><input id="vSearch" class="field" style="max-width:260px;margin:0" placeholder="Tìm từ..." oninput="renderVocab()"></div><div id="vocabList"></div></div>
+</section>
+<section id="view-path" class="view">
+<div class="section-head"><div><h2>Lộ trình CEFR A1–C2</h2><p>Chọn cấp độ phù hợp. Hoàn thành bài kiểm tra nhỏ để ghi nhận tiến độ.</p></div></div>
+<div class="grid3" id="levels"></div><div class="card" style="margin-top:16px" id="levelLesson"><h3>Chọn cấp độ để xem bài học</h3><p class="muted">Mỗi cấp độ gồm mục tiêu, một bài học gợi ý và bài kiểm tra nhanh.</p></div>
+</section>
+<section id="view-scenarios" class="view">
+<div class="section-head"><div><h2>Hội thoại theo tình huống</h2><p>Thực hành trả lời tự nhiên, không cần sợ sai.</p></div><span class="pill">Practice mode</span></div>
+<div class="grid2"><div class="card"><h3>Chọn tình huống</h3><div id="scenarioChoices" class="grid2"></div><div class="divider"></div><div id="scenarioPrompt" class="result">Chọn tình huống để bắt đầu.</div><p class="tiny">Bạn có thể tự luyện ngay. Nếu cấu hình AI endpoint, hệ thống sẽ phản hồi theo ngữ cảnh.</p></div><div class="card"><h3 id="chatTitle">Cuộc trò chuyện</h3><div id="chat" class="chat"><div class="empty">Chọn tình huống bên trái để bắt đầu nhé.</div></div><textarea id="chatInput" class="field" style="min-height:90px" placeholder="Type your answer in English..."></textarea><div class="row"><button onclick="sendChat()">Gửi câu trả lời</button><button class="secondary" onclick="resetChat()">Làm lại</button></div><div id="chatFeedback" class="result" hidden></div></div></div>
+</section>
+<section id="view-bank" class="view">
+<div class="section-head"><div><h2>Ngân hàng câu hỏi</h2><p>Lọc theo kỹ năng và cấp độ; làm lại câu sai để củng cố kiến thức.</p></div><span class="pill" id="quizCount">Câu 1</span></div>
+<div class="card"><div class="row"><div class="grow"><label>Kỹ năng</label><select id="qSkill" class="field" onchange="startQuiz()" style="margin-top:4px"><option value="all">Tất cả kỹ năng</option><option value="Grammar">Grammar</option><option value="Vocabulary">Vocabulary</option><option value="Reading">Reading</option></select></div><div class="grow"><label>Cấp độ</label><select id="qLevel" class="field" onchange="startQuiz()" style="margin-top:4px"><option value="all">Tất cả</option><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select></div><div class="grow"><label>Chế độ</label><select id="qMode" class="field" onchange="startQuiz()" style="margin-top:4px"><option value="all">Tất cả câu</option><option value="wrong">Chỉ câu sai</option></select></div></div><div class="divider"></div><div class="tiny" id="qMeta"></div><h3 id="qPrompt" style="margin-top:10px">Loading...</h3><div id="qOptions"></div><div class="row"><button onclick="answerQuestion()">Kiểm tra</button><button class="secondary" onclick="nextQuestion()">Câu tiếp theo →</button></div><div id="qResult" class="result" hidden></div><div class="row" style="justify-content:space-between;margin-top:16px"><span class="muted" id="qScore">Điểm phiên này: 0</span><button class="ghost small" onclick="resetQuiz()">Làm lại từ đầu</button></div></div>
+</section>
+<section id="view-dashboard" class="view">
+<div class="section-head"><div><h2>Tiến độ học tập</h2><p>Nhìn lại thói quen học và các kỹ năng cần ưu tiên.</p></div><button class="secondary small" onclick="exportProgress()">Xuất dữ liệu JSON</button></div>
+<div class="grid2"><div class="card"><h3>📈 Kết quả theo kỹ năng</h3><div id="skillBars"></div><p class="tiny">Điểm phản ánh các bài đã hoàn thành trong ứng dụng, không phải chứng chỉ CEFR chính thức.</p></div><div class="card"><h3>🗓️ 7 ngày gần đây</h3><div id="weekChart" class="row" style="align-items:end;gap:10px;min-height:150px"></div><div class="tiny">Số bài hoàn thành mỗi ngày</div></div><div class="card"><h3>🎯 Mục tiêu & thói quen</h3><p id="dashboardGoal"></p><div class="progress"><span id="dashGoalBar"></span></div><p id="dashStreak"></p><button class="secondary" onclick="setDailyGoal()">Đổi mục tiêu hằng ngày</button></div><div class="card"><h3>🧩 Lỗi cần ôn lại</h3><div id="mistakes"></div></div></div><div class="card" style="margin-top:16px"><h3>🕘 Lịch sử hoạt động gần đây</h3><div id="history"></div></div>
+</section>
+</main>
+<footer>EZENG · Học đều một chút mỗi ngày 🌱<br>Tiến độ và từ vựng được lưu cục bộ trên thiết bị. Phản hồi AI thật cần cấu hình API riêng an toàn.</footer>
+</div>
 <script>
-const titles={listen:'🎧 Listening — Nghe hiểu',speak:'🎙️ Speaking — Luyện nói',read:'📖 Reading — Đọc hiểu',write:'✍️ Writing — Luyện viết'};
-let completed=Number(localStorage.getItem('ezengDone')||0), points=Number(localStorage.getItem('ezengPoints')||0);
-function updateStats(){document.getElementById('done').textContent=completed;document.getElementById('streak').textContent=points;document.getElementById('progress').style.width=Math.min(100,completed*10)+'%'}
-function finish(pointsEarned=10){completed++;points+=pointsEarned;localStorage.setItem('ezengDone',completed);localStorage.setItem('ezengPoints',points);updateStats()}
-function setSkill(s){['listen','speak','read','write'].forEach(k=>{document.getElementById(k).classList.toggle('hide',k!==s);document.getElementById('tab-'+k).classList.toggle('active',k===s);document.getElementById('card-'+k).classList.toggle('active',k===s)});document.getElementById('practiceTitle').textContent=titles[s];}
-function speakText(t){if(!('speechSynthesis'in window)){alert('Trình duyệt này chưa hỗ trợ đọc văn bản.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.86;speechSynthesis.speak(u)}
-function checkListen(){let a=document.querySelector('input[name="listenAns"]:checked'),r=document.getElementById('listenResult');if(!a){r.textContent='Hãy chọn một đáp án trước nhé.';return}if(a.value==='b'){r.innerHTML='✅ Chính xác! “At seven o’clock.”';r.className='answer success';if(!r.dataset.done){finish();r.dataset.done='1'}}else{r.textContent='Chưa đúng. Hãy nghe lại và chú ý cụm “at seven o’clock”.';r.className='answer error'}}
-function checkRead(){let a=document.querySelector('input[name="readAns"]:checked'),r=document.getElementById('readResult');if(!a){r.textContent='Hãy chọn một đáp án trước nhé.';return}if(a.value==='b'){r.textContent='✅ Chính xác! Emma studies for twenty minutes.';r.className='answer success';if(!r.dataset.done){finish();r.dataset.done='1'}}else{r.textContent='Chưa đúng. Đọc lại câu thứ hai của đoạn văn nhé.';r.className='answer error'}}
-function startSpeech(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){document.getElementById('micStatus').textContent='Trình duyệt chưa hỗ trợ nhận diện giọng nói. Hãy dùng nút nghe mẫu và tự đọc thành tiếng.';return}let rec=new SR();rec.lang='en-US';rec.interimResults=false;rec.onstart=()=>document.getElementById('micStatus').textContent='Đang nghe… Hãy nói bằng tiếng Anh.';rec.onresult=e=>document.getElementById('speechText').textContent=e.results[0][0].transcript;rec.onerror=e=>document.getElementById('micStatus').textContent='Không dùng được micro ('+e.error+'). Kiểm tra quyền micro hoặc thử Chrome/Edge.';rec.onend=()=>document.getElementById('micStatus').textContent='Đã kết thúc lượt nói.';rec.start()}
-function evaluateSpeech(){let t=document.getElementById('speechText').textContent;if(!t||t.startsWith('Bản nhận diện')){document.getElementById('speechResult').textContent='Hãy thử nói một vài câu trước. Bạn cũng có thể ghi âm bằng ứng dụng riêng để tự nghe lại.';return}document.getElementById('speechResult').innerHTML='🗣️ Bạn đã thực hành nói! Hãy kiểm tra: <br>• Có giới thiệu tên không? <br>• Có nói thành câu đầy đủ không? <br>• Hãy nghe lại và thử nói chậm, rõ hơn.<br><br><b>Bạn đã nói:</b> '+escapeHtml(t);finish(5)}
-function checkWriting(){let t=document.getElementById('writing').value.trim(),r=document.getElementById('writeResult');if(!t){r.textContent='Hãy viết vài câu trước nhé.';return}let words=t.split(/\s+/).filter(Boolean),tips=[];if(words.length<15)tips.push('Thử viết thêm để đạt khoảng 3–5 câu (hiện khoảng '+words.length+' từ).');if(!/[.!?]$/.test(t))tips.push('Thêm dấu câu ở cuối bài.');if(!/\b(I|my|we|English|usually|learn|study|listen|read|speak|write)\b/i.test(t))tips.push('Kiểm tra xem bài đã trả lời đúng chủ đề học tiếng Anh chưa.');if(!/[A-Z]/.test(t[0]))tips.push('Viết hoa chữ cái đầu câu.');if(!tips.length)tips.push('Bài có độ dài và dấu câu cơ bản ổn. Hãy tự rà lại thì động từ, chính tả và cách diễn đạt.');r.innerHTML='📝 Gợi ý tự sửa:<br>• '+tips.map(escapeHtml).join('<br>• ')+'<br><br><span class="muted">Đây là kiểm tra quy tắc đơn giản, không phải phản hồi từ mô hình AI.</span>';finish(5)}
-function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function resetProgress(){if(confirm('Đặt lại điểm và số bài đã hoàn thành trên trình duyệt này?')){completed=0;points=0;localStorage.removeItem('ezengDone');localStorage.removeItem('ezengPoints');updateStats()}}
-updateStats();
+const $=id=>document.getElementById(id);
+const storeKey='ezeng_v2';
+const defaultState={done:0,points:0,goal:15,streak:0,lastDay:'',daily:{},skills:{Listening:0,Speaking:0,Reading:0,Writing:0},vocab:[],level:'A1',levelsDone:{},wrong:[],history:[],chatHistory:[]};
+let state=loadState();
+function loadState(){try{return {...defaultState,...JSON.parse(localStorage.getItem(storeKey)||'{}')}}catch(e){return {...defaultState}}}
+function save(){localStorage.setItem(storeKey,JSON.stringify(state));renderStats()}
+function dayKey(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function logActivity(label,skill='General',points=5){let day=dayKey();state.done++;state.points+=points;state.daily[day]=(state.daily[day]||0)+1;if(state.lastDay!==day){let y=new Date();y.setDate(y.getDate()-1);state.streak=state.lastDay===dayKey(y)?state.streak+1:1;state.lastDay=day}if(state.skills[skill]!==undefined)state.skills[skill]++;state.history.unshift({date:new Date().toLocaleString('vi-VN'),label,skill,points});state.history=state.history.slice(0,30);save();renderDashboard()}
+function renderStats(){ $('statDone').textContent=state.done;$('statPoints').textContent=state.points;$('statStreak').textContent=state.streak+' 🔥';let today=state.daily[dayKey()]||0;$('statGoal').textContent=today+'/'+state.goal;$('goalBar').style.width=Math.min(100,today/state.goal*100)+'%';$('currentLevelLabel').textContent=state.level}
+function go(view){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+view));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===view));if(view==='vocab'){renderVocab();showCard()}if(view==='path')renderLevels();if(view==='dashboard')renderDashboard();if(view==='bank'&&!quizReady)startQuiz();window.scrollTo({top:0,behavior:'smooth'})}
+function speakText(t){if(!('speechSynthesis'in window)){alert('Trình duyệt chưa hỗ trợ đọc văn bản.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.88;speechSynthesis.speak(u)}
+const listenQs=[{t:'At what time does Mia go to school?',opts:['At seven o’clock','At eight o’clock','At nine o’clock'],a:1,why:'Mia says she takes the bus at eight o’clock.'}];
+const readQs=[{t:'What does Leo do before breakfast?',opts:['He reads a new book','He reviews new words','He meets his friends'],a:1,why:'The passage says he reviews the words before breakfast.'}];
+function fillOptions(id,items,name){$(id).innerHTML=items.map((o,i)=>`<label class="option"><input type="radio" name="${name}" value="${i}"><span>${o}</span></label>`).join('')}
+fillOptions('listenOptions',listenQs[0].opts,'listenAnswer');fillOptions('readOptions',readQs[0].opts,'readAnswer');
+function checkSkill(skill){let data=skill==='listen'?listenQs[0]:readQs[0],chosen=document.querySelector(`input[name="${skill==='listen'?'listenAnswer':'readAnswer'}"]:checked`),r=$(skill+'Result');r.hidden=false;if(!chosen){r.textContent='Chọn một đáp án trước nhé.';r.className='result bad';return}if(+chosen.value===data.a){r.textContent='✅ Chính xác! '+data.why;r.className='result good';if(!r.dataset.done){logActivity(skill==='listen'?'Listening: daily routine':'Reading: small habit',skill==='listen'?'Listening':'Reading',10);r.dataset.done='1'}}else{r.textContent='Chưa đúng. '+data.why;r.className='result bad';state.wrong.unshift({text:data.t,answer:data.opts[data.a],date:dayKey()});state.wrong=state.wrong.slice(0,30);save()}}
+function startSpeech(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$('speechResult').hidden=false;$('speechResult').textContent='Trình duyệt này chưa hỗ trợ nhận diện giọng nói. Hãy thử Chrome/Edge hoặc luyện bằng câu mẫu.';return}let rec=new SR();rec.lang='en-US';rec.interimResults=false;rec.onstart=()=>$('speechText').textContent='Đang nghe... hãy nói bằng tiếng Anh.';rec.onresult=e=>$('speechText').textContent=e.results[0][0].transcript;rec.onerror=e=>$('speechText').textContent='Không truy cập được micro ('+e.error+'). Kiểm tra quyền micro.';rec.start()}
+function reviewSpeech(){let t=$('speechText').textContent.trim();$('speechResult').hidden=false;if(!t||t.startsWith('Bản nhận diện')||t.startsWith('Đang nghe')){$('speechResult').textContent='Hãy nói trước rồi tự đánh giá nhé.';return}let checks=[];if(t.split(/\s+/).length<8)checks.push('Thử nói thêm chi tiết để thành 2–3 câu.');if(!/\b(my name|i am|i'm|i)\b/i.test(t))checks.push('Thử dùng “My name is…” hoặc “I…” để giới thiệu bản thân.');if(!/[.!?]$/.test(t))checks.push('Khi luyện, nhớ kết thúc ý rõ ràng.');if(!checks.length)checks.push('Bạn đã nói được một câu có ý. Thử nói chậm, rõ và bổ sung một ví dụ.');$('speechResult').textContent='Gợi ý tự luyện:\n• '+checks.join('\n• ')+'\n\nBản nhận diện: '+t;logActivity('Speaking practice','Speaking',5)}
+async function requestAI(payload){try{let res=await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(res.ok){let data=await res.json();if(data.feedback)return data.feedback}return null}catch(e){return null}}
+async function checkWriting(){let t=$('writing').value.trim(),r=$('writeResult');r.hidden=false;if(!t){r.textContent='Viết một vài câu trước nhé.';return}r.textContent='Đang kiểm tra...';let ai=await requestAI({mode:'writing',text:t,level:state.level});if(ai){r.textContent=ai;logActivity('Writing: feedback','Writing',10);return}let words=t.split(/\s+/).filter(Boolean),tips=[];if(words.length<15)tips.push(`Bài có khoảng ${words.length} từ; thử phát triển thành 3–5 câu.`);if(!/[.!?]$/.test(t))tips.push('Thêm dấu câu cuối câu.');if(!/^[A-Z]/.test(t))tips.push('Viết hoa chữ cái đầu câu.');if(!/\b(I|my|we|English|study|learn|practice|practise|listen|read|speak|write)\b/i.test(t))tips.push('Kiểm tra xem câu trả lời có đúng chủ đề luyện tiếng Anh không.');if(!tips.length)tips.push('Đã qua một số kiểm tra cơ bản. Hãy tự kiểm tra thì động từ, mạo từ, chính tả và cách diễn đạt.');r.textContent='Gợi ý kiểm tra cơ bản (chưa kết nối AI):\n• '+tips.join('\n• ')+'\n\nĐể có sửa ngữ pháp, giải thích tiếng Việt và cách viết tự nhiên, hãy cấu hình API theo README.';logActivity('Writing: basic check','Writing',5)}
+const seedWords=[{word:'confident',meaning:'tự tin',ipa:'/ˈkɒn.fɪ.dənt/',example:'She feels confident when speaking English.',source:'Reading',known:false,due:0},{word:'review',meaning:'ôn tập',ipa:'/rɪˈvjuː/',example:'I review new words every night.',source:'Reading',known:false,due:0},{word:'habit',meaning:'thói quen',ipa:'/ˈhæb.ɪt/',example:'Reading is a good habit.',source:'General',known:false,due:0}];
+if(!state.vocab || !state.vocab.length){state.vocab=seedWords.slice();localStorage.setItem(storeKey,JSON.stringify(state));}
+let flashIndex=0,cardFlipped=false;
+function saveWord(word,meaning,ipa,example,source='General'){if(state.vocab.some(v=>v.word.toLowerCase()===word.toLowerCase())){alert('Từ này đã có trong sổ rồi nha.');return}state.vocab.unshift({word,meaning,ipa,example,source,known:false,due:0});save();renderVocab();alert('Đã lưu từ: '+word)}
+function addVocab(){let word=$('vWord').value.trim(),meaning=$('vMeaning').value.trim();if(!word||!meaning){alert('Nhập từ và nghĩa tiếng Việt trước nhé.');return}saveWord(word,meaning,$('vIpa').value.trim(),$('vExample').value.trim());['vWord','vMeaning','vIpa','vExample'].forEach(id=>$(id).value='')}
+function renderVocab(){ $('vocabCount').textContent=state.vocab.length+' từ';let q=($('vSearch')?.value||'').toLowerCase();let list=state.vocab.filter(v=>(v.word+' '+v.meaning).toLowerCase().includes(q));$('vocabList').innerHTML=list.length?list.map(v=>`<div class="row" style="padding:12px 0;border-bottom:1px solid var(--line);justify-content:space-between"><div class="grow"><b>${esc(v.word)}</b> <span class="tiny">${esc(v.ipa||'')}</span><div>${esc(v.meaning)}</div><div class="tiny">${esc(v.example||'Chưa có câu ví dụ')} · ${v.known?'✓ Đã nhớ':'↻ Cần ôn'}</div></div><div class="row"><button class="secondary small" onclick="speakText(${JSON.stringify(v.word)})">🔊</button><button class="ghost small" onclick="deleteWord(${JSON.stringify(v.word)})">Xóa</button></div></div>`).join(''):'<div class="empty">Chưa có từ phù hợp. Hãy thêm từ đầu tiên nhé.</div>';showCard()}
+function deleteWord(w){state.vocab=state.vocab.filter(v=>v.word!==w);flashIndex=Math.max(0,Math.min(flashIndex,state.vocab.length-1));save();renderVocab()}
+function showCard(){let v=state.vocab[flashIndex];cardFlipped=false;if(!v){$('flashWord').textContent='Chưa có từ nào';$('flashIpa').textContent='';$('flashMeaning').textContent='Thêm từ mới để bắt đầu';$('flashExample').textContent='';$('flashMeta').textContent='';return}$('flashWord').textContent=v.word;$('flashIpa').textContent=v.ipa||'';$('flashMeaning').textContent='••• Bấm thẻ để xem nghĩa •••';$('flashExample').textContent='';$('flashMeta').textContent=`Thẻ ${flashIndex+1}/${state.vocab.length} · ${v.known?'Đã nhớ':'Cần ôn lại'}`}
+function flipCard(){let v=state.vocab[flashIndex];if(!v)return;cardFlipped=!cardFlipped;$('flashMeaning').textContent=cardFlipped?v.meaning:'••• Bấm thẻ để xem nghĩa •••';$('flashExample').textContent=cardFlipped?(v.example||'Chưa có ví dụ') :''}
+function nextCard(){if(state.vocab.length){flashIndex=(flashIndex+1)%state.vocab.length;showCard()}}
+function prevCard(){if(state.vocab.length){flashIndex=(flashIndex-1+state.vocab.length)%state.vocab.length;showCard()}}
+function rateCard(known){let v=state.vocab[flashIndex];if(!v)return;v.known=known;v.due=Date.now()+(known?3:0)*86400000;save();renderVocab();if(known)logActivity('Vocabulary review: '+v.word,'General',2);nextCard()}
+const levels=[
+['A1','Beginner','Giới thiệu bản thân, câu đơn, số và thời gian.','Present simple · everyday vocabulary','I ___ a student.',['am','is','are'],0,'Dùng “I am” khi giới thiệu bản thân.'],
+['A2','Elementary','Nói về thói quen, gia đình, kế hoạch gần.','Past simple · comparatives','Yesterday, we ___ to the park.',['go','went','gone'],1,'“Yesterday” thường đi với quá khứ đơn: went.'],
+['B1','Intermediate','Kể trải nghiệm và giải thích ý kiến.','Present perfect · linking ideas','I have lived here ___ 2022.',['for','since','during'],1,'Dùng “since” với mốc thời gian bắt đầu.'],
+['B2','Upper intermediate','Trình bày quan điểm rõ và phát triển luận điểm.','Conditionals · complex sentences','If I had more time, I ___ another language.',['learn','will learn','would learn'],2,'Câu điều kiện loại 2: If + past simple, would + verb.'],
+['C1','Advanced','Diễn đạt tinh tế, linh hoạt trong học tập và công việc.','Nuance · collocations','The proposal was rejected due to a lack of ___.',['feasible','feasibility','feasibly'],1,'“A lack of feasibility” là cụm danh từ phù hợp.'],
+['C2','Proficiency','Hiểu sắc thái và lập luận chính xác trong ngữ cảnh phức tạp.','Register · idiomatic precision','Her explanation was concise, ___, and persuasive.',['yet','although','despite'],0,'“Yet” nối hai đặc điểm tương phản trong cùng cấu trúc.']];
+function renderLevels(){ $('levels').innerHTML=levels.map(l=>`<button class="level ${state.level===l[0]?'selected':''}" onclick="selectLevel('${l[0]}')"><strong>${l[0]}</strong>${l[1]}<small>${esc(l[2])}</small><div class="progress"><span style="width:${state.levelsDone[l[0]]?100:0}%"></span></div><small>${state.levelsDone[l[0]]?'✓ Bài kiểm tra đã hoàn thành':'Chưa hoàn thành'}</small></button>`).join('');renderLesson()}
+function selectLevel(level){state.level=level;save();renderLevels()}
+function renderLesson(){let l=levels.find(x=>x[0]===state.level);$('levelLesson').innerHTML=`<span class="pill">${l[0]} · ${l[1]}</span><h3 style="margin-top:12px">Mục tiêu học tập</h3><p>${esc(l[2])}</p><p><b>Chủ điểm:</b> ${esc(l[3])}</p><div class="divider"></div><h3>Kiểm tra nhanh</h3><p>${esc(l[4])}</p><div id="levelOptions">${l[5].map((o,i)=>`<label class="option"><input type="radio" name="levelAnswer" value="${i}"><span>${esc(o)}</span></label>`).join('')}</div><button onclick="checkLevel()">Kiểm tra cấp độ</button><div id="levelResult" class="result" hidden></div><p class="tiny" style="margin-top:12px">Đây là bài học mẫu để luyện tập, không phải bài đánh giá CEFR chuẩn hóa.</p>`}
+function checkLevel(){let l=levels.find(x=>x[0]===state.level),a=document.querySelector('input[name="levelAnswer"]:checked'),r=$('levelResult');r.hidden=false;if(!a){r.textContent='Chọn đáp án trước nhé.';return}if(+a.value===l[6]){r.className='result good';r.textContent='Chính xác! '+l[7];state.levelsDone[state.level]=true;logActivity('CEFR '+state.level+' mini lesson','General',10)}else{r.className='result bad';r.textContent='Chưa đúng. '+l[7];state.wrong.unshift({text:l[4],answer:l[5][l[6]],date:dayKey()});save()}renderLevels()}
+const scenarios=[
+{id:'cafe',name:'☕ Quán cà phê',start:'You are ordering at a café. The barista asks: “Hi there! What can I get for you today?”',hint:'Gọi món, chọn kích cỡ và hỏi giá.'},
+{id:'interview',name:'💼 Phỏng vấn',start:'You are at a job interview. The interviewer asks: “Could you tell me a little about yourself?”',hint:'Giới thiệu ngắn, kỹ năng và điểm mạnh.'},
+{id:'travel',name:'✈️ Du lịch',start:'You are checking into a hotel. The receptionist says: “Good afternoon! Do you have a reservation?”',hint:'Xác nhận đặt phòng, hỏi giờ nhận phòng.'},
+{id:'school',name:'🎓 Ở trường',start:'You meet a classmate before class. They ask: “Have you finished the assignment yet?”',hint:'Nói tiến độ và hỏi thêm thông tin.'},
+{id:'friends',name:'🧋 Gặp bạn bè',start:'Your friend asks: “What do you like doing in your free time?”',hint:'Nói sở thích và đặt câu hỏi lại.'},
+{id:'travel2',name:'🧭 Hỏi đường',start:'You are in a new city. A local asks: “Can I help you find something?”',hint:'Nêu địa điểm và hỏi cách đi.'}
+];let activeScenario=null;
+function renderScenarios(){$('scenarioChoices').innerHTML=scenarios.map(s=>`<div class="scenario ${activeScenario?.id===s.id?'active':''}" onclick="chooseScenario('${s.id}')"><b>${s.name}</b><div class="tiny">${s.hint}</div></div>`).join('')}
+function chooseScenario(id){activeScenario=scenarios.find(s=>s.id===id);$('scenarioPrompt').textContent=activeScenario.start;$('chatTitle').textContent=activeScenario.name.replace(/^[^ ]+ /,'');$('chat').innerHTML='';addBubble(activeScenario.start,'bot');$('chatFeedback').hidden=true;renderScenarios()}
+function addBubble(text,who){let div=document.createElement('div');div.className='bubble '+who;div.textContent=text;$('chat').appendChild(div);$('chat').scrollTop=$('chat').scrollHeight}
+function resetChat(){if(activeScenario)chooseScenario(activeScenario.id);else $('chat').innerHTML='<div class="empty">Chọn tình huống bên trái để bắt đầu nhé.</div>';$('chatInput').value=''}
+async function sendChat(){let t=$('chatInput').value.trim();if(!t||!activeScenario){alert('Chọn tình huống và nhập câu trả lời tiếng Anh nhé.');return}addBubble(t,'me');$('chatInput').value='';$('chatFeedback').hidden=false;$('chatFeedback').textContent='Đang xem phản hồi...';let ai=await requestAI({mode:'conversation',scenario:activeScenario.name,context:activeScenario.start,text:t,level:state.level});if(ai){$('chatFeedback').textContent=ai;addBubble(ai,'bot')}else{let n=t.split(/\s+/).length,checks=[];if(n<5)checks.push('Thử mở rộng câu trả lời bằng một lý do hoặc chi tiết.');if(!/[.!?]$/.test(t))checks.push('Thêm dấu câu khi viết để luyện câu hoàn chỉnh.');if(!/\b(please|thank|could|would|because|and|but|I|my|we)\b/i.test(t))checks.push('Thử dùng “I…”, “Could I…?”, “please” hoặc “because” tùy tình huống.');if(!checks.length)checks.push('Câu trả lời đã có ý chính. Thử thêm chi tiết và hỏi lại đối phương để cuộc trò chuyện tiếp tục.');$('chatFeedback').textContent='Gợi ý tự cải thiện (chưa kết nối AI):\n• '+checks.join('\n• ')+'\n\nMẫu trả lời có thể khác nhau tùy ngữ cảnh.';addBubble('Thanks for your answer! Could you tell me a little more?','bot')}state.chatHistory.unshift({scenario:activeScenario.name,text:t,date:dayKey()});state.chatHistory=state.chatHistory.slice(0,30);logActivity('Scenario: '+activeScenario.name,'Speaking',5)}
+const questions=[
+{skill:'Grammar',level:'A1',q:'She ___ to school every day.',opts:['go','goes','going'],a:1,why:'Với he/she/it ở hiện tại đơn, động từ thường thêm -s/-es.'},
+{skill:'Vocabulary',level:'A1',q:'What does “usually” mean?',opts:['hiếm khi','thường thường','ngay lập tức'],a:1,why:'Usually = thường thường / thường xuyên.'},
+{skill:'Reading',level:'A1',q:'Tom has a cat. He feeds it every morning. What does Tom do every morning?',opts:['Feeds his cat','Walks his dog','Reads a book'],a:0,why:'Câu văn nói Tom cho mèo ăn mỗi sáng.'},
+{skill:'Grammar',level:'A2',q:'We ___ a movie last night.',opts:['watch','watched','watches'],a:1,why:'“Last night” chỉ thời điểm quá khứ, dùng watched.'},
+{skill:'Vocabulary',level:'A2',q:'Choose a synonym for “quick”.',opts:['fast','quiet','weak'],a:0,why:'Quick và fast đều có nghĩa là nhanh.'},
+{skill:'Reading',level:'A2',q:'Nina missed the bus, so she walked to work. Why did Nina walk?',opts:['She wanted exercise','She missed the bus','Her car was new'],a:1,why:'Cô ấy đi bộ vì lỡ chuyến xe buýt.'},
+{skill:'Grammar',level:'B1',q:'I have worked here ___ three years.',opts:['since','for','during'],a:1,why:'Dùng “for” với khoảng thời gian; “since” với mốc bắt đầu.'},
+{skill:'Vocabulary',level:'B1',q:'If something is “reliable”, it is…',opts:['easy to break','able to be trusted','very expensive'],a:1,why:'Reliable = đáng tin cậy.'},
+{skill:'Grammar',level:'B2',q:'If I had known, I ___ you.',opts:['would tell','would have told','will tell'],a:1,why:'Câu điều kiện loại 3: If + past perfect, would have + past participle.'},
+{skill:'Vocabulary',level:'B2',q:'“To weigh the pros and cons” means to…',opts:['compare advantages and disadvantages','measure someone’s weight','avoid making a choice'],a:0,why:'Thành ngữ này nghĩa là cân nhắc ưu và nhược điểm.'},
+{skill:'Grammar',level:'C1',q:'Hardly ___ the meeting started when the fire alarm rang.',opts:['had','has','did'],a:0,why:'Đảo ngữ với Hardly: Hardly had + subject + past participle + when…'},
+{skill:'Vocabulary',level:'C2',q:'“Obfuscate” most nearly means…',opts:['clarify','make unclear','summarize'],a:1,why:'Obfuscate = làm cho khó hiểu hoặc mơ hồ.'}
+];
+let quizItems=[],quizIndex=0,quizScore=0,quizReady=false,quizAnswered=false;
+function startQuiz(){let skill=$('qSkill').value,level=$('qLevel').value,mode=$('qMode').value;quizItems=questions.filter(q=>(skill==='all'||q.skill===skill)&&(level==='all'||q.level===level)&&(mode!=='wrong'||state.wrong.some(w=>w.text===q.q)));if(mode==='wrong'&&!quizItems.length)quizItems=questions.filter(q=>state.wrong.some(w=>w.text===q.q));quizIndex=0;quizScore=0;quizAnswered=false;quizReady=true;renderQuestion()}
+function renderQuestion(){let q=quizItems[quizIndex];$('qResult').hidden=true;if(!q){$('qPrompt').textContent='Không có câu hỏi trong bộ lọc này.';$('qOptions').innerHTML='<p class="muted">Thử chọn “Tất cả câu” hoặc thêm câu sai bằng cách luyện tiếp nhé.</p>';$('qMeta').textContent='';$('quizCount').textContent='0 câu';$('qScore').textContent='Điểm phiên này: '+quizScore;return}$('quizCount').textContent=`Câu ${quizIndex+1}/${quizItems.length}`;$('qMeta').textContent=`${q.skill} · ${q.level}`;$('qPrompt').textContent=q.q;$('qOptions').innerHTML=q.opts.map((o,i)=>`<label class="option"><input type="radio" name="quizAnswer" value="${i}"><span>${esc(o)}</span></label>`).join('');$('qScore').textContent='Điểm phiên này: '+quizScore;quizAnswered=false}
+function answerQuestion(){let q=quizItems[quizIndex];if(!q||quizAnswered)return;let a=document.querySelector('input[name="quizAnswer"]:checked'),r=$('qResult');r.hidden=false;if(!a){r.textContent='Chọn đáp án trước nhé.';return}quizAnswered=true;if(+a.value===q.a){r.className='result good';r.textContent='✅ Chính xác! '+q.why;quizScore++;logActivity('Quiz: '+q.skill+' '+q.level,'General',5)}else{r.className='result bad';r.textContent='Chưa đúng. Đáp án: '+q.opts[q.a]+'. '+q.why;state.wrong.unshift({text:q.q,answer:q.opts[q.a],date:dayKey()});state.wrong=state.wrong.slice(0,30);save()}$('qScore').textContent='Điểm phiên này: '+quizScore}
+function nextQuestion(){if(quizItems.length){quizIndex=(quizIndex+1)%quizItems.length;renderQuestion()}}
+function resetQuiz(){startQuiz()}
+function renderDashboard(){let skillNames=['Listening','Speaking','Reading','Writing'];let max=Math.max(1,...skillNames.map(k=>state.skills[k]||0));$('skillBars').innerHTML=skillNames.map(k=>`<div class="bar-row"><span>${k}</span><div class="bar"><span style="width:${(state.skills[k]||0)/max*100}%"></span></div><b>${state.skills[k]||0}</b></div>`).join('');let days=[];for(let i=6;i>=0;i--){let d=new Date();d.setDate(d.getDate()-i);days.push({key:dayKey(d),label:d.toLocaleDateString('vi-VN',{weekday:'short'}),n:state.daily[dayKey(d)]||0})}let maxDay=Math.max(1,...days.map(d=>d.n));$('weekChart').innerHTML=days.map(d=>`<div style="flex:1;text-align:center"><div style="height:105px;display:flex;align-items:end;justify-content:center"><div title="${d.n} bài" style="width:70%;height:${Math.max(5,d.n/maxDay*100)}%;background:var(--primary);border-radius:7px 7px 2px 2px"></div></div><div class="tiny">${d.label}</div><b style="font-size:12px">${d.n}</b></div>`).join('');let today=state.daily[dayKey()]||0;$('dashboardGoal').textContent=`Hôm nay: ${today}/${state.goal} bài hoàn thành.`;$('dashGoalBar').style.width=Math.min(100,today/state.goal*100)+'%';$('dashStreak').textContent=`Chuỗi ngày học hiện tại: ${state.streak} ngày. Tổng điểm: ${state.points}.`;$('mistakes').innerHTML=state.wrong.length?state.wrong.slice(0,8).map(w=>`<div style="padding:8px 0;border-bottom:1px solid var(--line)"><b>${esc(w.text)}</b><div class="tiny">Đáp án: ${esc(w.answer||'Ôn lại kiến thức')} · ${esc(w.date)}</div></div>`).join(''):'<p class="muted">Chưa có lỗi được lưu. Khi làm sai câu hỏi, câu đó sẽ xuất hiện ở đây.</p>';$('history').innerHTML=state.history.length?state.history.slice(0,10).map(h=>`<div class="row" style="justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line)"><div><b>${esc(h.label)}</b><div class="tiny">${esc(h.date)} · ${esc(h.skill)}</div></div><span class="pill">+${h.points} điểm</span></div>`).join(''):'<div class="empty">Bạn chưa có hoạt động. Hoàn thành bài đầu tiên để bắt đầu theo dõi.</div>'}
+function setDailyGoal(){let n=prompt('Bạn muốn hoàn thành bao nhiêu bài mỗi ngày? (1–100)',state.goal);if(n===null)return;n=Number(n);if(!Number.isInteger(n)||n<1||n>100){alert('Nhập số nguyên từ 1 đến 100 nhé.');return}state.goal=n;save();renderDashboard()}
+function exportProgress(){let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='ezeng-progress.json';a.click();URL.revokeObjectURL(url)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+renderStats();renderLevels();renderScenarios();startQuiz();renderVocab();renderDashboard();
 </script>
-</body>
-</html>
+</body></html>
