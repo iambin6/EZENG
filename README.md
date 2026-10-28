@@ -7,36 +7,43 @@
 ## ✨ Tính năng nổi bật
 
 ### 1. ✍️ Góc luyện tập 4 kỹ năng (Practice)
-- **🎧 Listening (Nghe hiểu)**: Nghe phát âm chuẩn qua Web Speech API và làm bài tập trắc nghiệm.
-- **📖 Reading (Đọc hiểu)**: Đọc đoạn văn ngắn, phân tích ngữ cảnh, lưu từ vựng mới ngay chỉ với một chạm.
-- **🎙️ Speaking (Luyện nói)**: Nhận diện giọng nói qua microphone với Web Speech Recognition và nhận phản hồi tự đánh giá tức thì.
-- **✍️ Writing (Luyện viết)**: Viết đoạn văn ngắn và nhận nhận xét, sửa lỗi ngữ pháp kèm gợi ý tự nhiên hơn từ AI.
+- **🎧 Listening (Nghe hiểu)**: 
+  - Đa dạng nhiều bài nghe thực tế kèm điều khiển chuyển bài nhanh.
+  - Hỗ trợ 2 chế độ: **Trắc nghiệm** và **Chép chính tả (Dictation)** so khớp từng từ trực quan (đúng/sai/thiếu).
+  - Tùy chỉnh tốc độ giọng đọc linh hoạt (0.75x, 0.9x, 1.1x).
+- **📖 Reading (Đọc hiểu)**: Kho bài đọc phong phú với các chủ đề thiết thực, phân tích ngữ cảnh, lưu từ vựng mới ngay chỉ với 1 chạm.
+- **🎙️ Speaking (Luyện nói)**: Nhận diện giọng nói qua microphone với Web Speech Recognition, đổi nhiều chủ đề luyện nói và nghe câu mẫu chuẩn.
+- **✍️ Writing (Luyện viết)**: Viết đoạn văn ngắn theo các chủ đề gợi ý, nhận nhận xét phân tích lỗi ngữ pháp từ AI hoặc kiểm tra cấu trúc offline.
 
 ### 2. 🗂️ Sổ từ vựng & Flashcards thông minh (Vocabulary)
-- Thêm từ vựng nhanh với phiên âm IPA, nghĩa tiếng Việt và câu ví dụ ngữ cảnh.
-- Ôn tập bằng **Flashcard lật 2 mặt**, hỗ trợ phát âm giọng bản xứ.
-- Đánh dấu mức độ nhớ ("Đã nhớ ✓" hoặc "Cần ôn lại") để tự động lập chu kỳ ôn tập.
-- Bộ lọc và tìm kiếm từ vựng tiện lợi.
+- Thêm từ vựng nhanh với phiên âm IPA, nghĩa tiếng Việt, câu ví dụ ngữ cảnh và tra cứu gợi ý tự động.
+- Ôn tập bằng **Flashcard lật 2 mặt**, hỗ trợ chế độ tự động đọc phát âm (Auto-audio) và xáo trộn ngẫu nhiên thẻ (Shuffle).
+- Thuật toán **Lặp lại ngắt quãng (Spaced Repetition - SRS)** với 3 mức nhớ: *Quên (ôn trong ngày)*, *Nhớ (+3 ngày)*, *Rất dễ (+7 ngày)*.
+- Bộ lọc từ vựng thông minh: *Tất cả*, *Chỉ từ cần ôn hôm nay*, hoặc *Đã nhớ tốt*.
 
 ### 3. 🪜 Lộ trình chuẩn CEFR từ A1 đến C2 (CEFR Path)
 - Bao phủ đầy đủ 6 cấp độ: **A1 (Beginner)**, **A2 (Elementary)**, **B1 (Intermediate)**, **B2 (Upper intermediate)**, **C1 (Advanced)**, **C2 (Proficiency)**.
-- Mục tiêu học tập, chủ điểm ngữ pháp cốt lõi và bài kiểm tra nhanh cho từng cấp độ.
+- Mục tiêu học tập, chủ điểm ngữ pháp cốt lõi và **bộ đề kiểm tra trắc nghiệm mini (3 câu/cấp độ)** để xác nhận hoàn thành cấp độ.
 
 ### 4. 💬 Hội thoại theo tình huống thực tế (Scenarios)
-- Đa dạng ngữ cảnh thực tế: Gọi đồ tại quán café, phỏng vấn xin việc, thủ tục khách sạn/du lịch, trao đổi bài học ở trường, trò chuyện cùng bạn bè, hỏi đường.
-- Tương tác nhập vai đàm thoại cùng AI thông minh hoặc tự luyện tập phản xạ.
+- 6 ngữ cảnh thực tế: Gọi đồ tại quán café, phỏng vấn xin việc, thủ tục khách sạn/du lịch, trao đổi bài học ở trường, trò chuyện cùng bạn bè, hỏi đường.
+- **Tương tác đàm thoại nhiều lượt liên tục (Multi-turn Context)**: Chatbot ghi nhớ toàn bộ cuộc trò chuyện để phản hồi tự nhiên.
+- **Gợi ý câu trả lời mẫu (Hints)**: Bấm 1 chạm để điền các mẫu câu tiếng Anh tự nhiên.
+- Nút phát âm 🔊 cho từng câu thoại của Bot.
 
 ### 5. 📝 Ngân hàng câu hỏi & Luyện câu sai (Question Bank)
+- Ngân hàng **40+ câu hỏi trắc nghiệm** chất lượng cao, bao phủ đầy đủ các thì, giới từ, mệnh đề, câu điều kiện, thành ngữ và từ vựng từ A1 đến C2.
 - Lọc câu hỏi theo kỹ năng (Grammar, Vocabulary, Reading) và trình độ (A1–C2).
 - Chế độ **"Chỉ câu sai"** giúp củng cố những điểm ngữ pháp và từ vựng còn yếu.
 - Điểm số và giải thích chi tiết đáp án ngay sau mỗi câu.
 
-### 6. 📊 Bảng điều khiển tiến độ (Dashboard)
+### 6. 📊 Bảng điều khiển tiến độ & Hệ thống Huy hiệu (Dashboard)
+- **Hệ thống Huy hiệu (Achievements)**: Mở khóa các danh hiệu khi đạt mốc chuỗi ngày (Streak 3/7 ngày), vốn từ vựng (10/30 từ), điểm số (50/200 điểm) và cấp độ CEFR.
 - Biểu đồ tiến độ chi tiết theo từng kỹ năng: Listening, Speaking, Reading, Writing.
 - Biểu đồ cột hoạt động trong 7 ngày gần nhất.
 - Đếm chuỗi ngày học liên tục (Streak 🔥) và tùy chỉnh mục tiêu bài học mỗi ngày.
-- Danh sách tổng hợp các câu sai cần ôn lại và lịch sử hoạt động gần đây.
-- Hỗ trợ **Xuất dữ liệu tiến độ ra file JSON** để sao lưu.
+- **Sao lưu & Khôi phục hoàn chỉnh**: Hỗ trợ cả **Xuất (Export)** và **Nhập (Import) file JSON** để không bao giờ mất dữ liệu học tập.
+- **Chế độ Giao diện Tối (Dark Mode)**: Bật/tắt chế độ ban đêm bảo vệ mắt.
 
 ---
 
